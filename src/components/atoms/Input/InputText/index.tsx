@@ -1,4 +1,5 @@
 import React, { memo } from 'react'
+import { withTheme } from 'styled-components'
 import { Input } from './style'
 
 type Props = {
@@ -15,6 +16,6 @@ const TextInput = memo((props: Props) => {
       {...props}
     />
   )
-})
+}) as any
 
-export default TextInput
+export default withTheme(TextInput)

@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import TextInput from 'src/components/atoms/Input/InputText'
+import React, { useState, useEffect } from 'react'
+import { withTheme } from 'styled-components'
+import InputText from 'src/components/atoms/Input/InputText'
 import { Form } from './style'
 import IconSearch from 'src/assets/icons/IconSearch'
 
@@ -12,24 +13,29 @@ type Query = {
   error: null | string
 }
 
-
-const SearchForm = ({ onSubmit }: Props) => {
+const SearchForm: any = ({ onSubmit }: Props) => {
   const [query, setQuery] = useState<Query>({
     value: '',
     error: null
   })
 
-  const [examples] = useState<string[]>([
+  const [placeholders] = useState<string[]>([
     'taylor swift folklore',
     'arctic monkeys am',
     'pink floyd wish you were here',
     'tame impala',
     'linkin park',
-    'twenty one pilots',
+    'vyonizr',
     'mylo xyloto',
     'death of a bachelor',
     'blurryface'
   ])
+
+  const [shownPlaceholder, setShownPlaceholder] = useState<string>('')
+
+  useEffect(() => {
+    setShownPlaceholder(pickRandomElement(placeholders))
+  }, [])
 
   const handleChangeQuery = (event: { target: HTMLInputElement }) => {
     setQuery({
@@ -51,11 +57,11 @@ const SearchForm = ({ onSubmit }: Props) => {
         <label htmlFor="query" className='query-label'>Artist name and/or album title</label>
       </div>
       <div>
-        <TextInput
+        <InputText
           value={query.value}
           id="query"
           onChange={handleChangeQuery}
-          placeholder={pickRandomElement(examples)}
+          placeholder={shownPlaceholder}
         />
         <button type="submit" className='search-button'><IconSearch /></button>
       </div>
@@ -63,4 +69,4 @@ const SearchForm = ({ onSubmit }: Props) => {
   )
 }
 
-export default SearchForm
+export default withTheme(SearchForm)

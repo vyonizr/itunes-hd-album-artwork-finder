@@ -2,16 +2,17 @@ import styled from 'styled-components'
 
 const Input = styled.input`
   padding: 12px;
-  height: 2.25em;
+  min-height: 44px;
   border: none;
   background-color: #fafafa;
 
   :focus {
-      outline: none;
+    outline: none;
+    background-color: none;
   }
 
   ::placeholder {
-    color: $placeholder;
+    color: ${props => props.theme.colors.placeholder};
   }
 `
 

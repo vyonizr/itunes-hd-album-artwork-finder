@@ -14,6 +14,7 @@ declare module 'styled-components' {
       placeholder: string
       gray: string
       darkerGray: string
+      darkerGrayHover: string
     }
   }
 }

@@ -1,8 +1,9 @@
 import React, { FunctionComponent, useState } from 'react'
 import Head from 'next/head'
-import { Container } from 'src/styles/Home'
+import { Container, AlbumContainer } from 'src/styles/Home'
 import { useAlbumSearch } from 'src/pages/hooks/useAlbumSearch'
 import { ITunesAlbum } from 'src/types'
+import Anchor from 'src/components/atoms/Anchor'
 import SearchForm from 'src/components/molecules/SearchForm'
 import CardAlbum from 'src/components/molecules/CardAlbum'
 
@@ -27,33 +28,27 @@ const Home: FunctionComponent = () => {
       <h2>iTunes Album Artwork Finder</h2>
       <SearchForm onSubmit={handleSubmitQuery} />
 
-      <div>
+      <AlbumContainer>
         {
           isError ? (
-            <div>{isError}</div>
+            <span>{isError}</span>
           ) :
           isLoading ? (
-            <div>Please wait...</div>
+            <span>Please wait...</span>
           ) :
           (albums.length === 0 && hasSearch) ? (
-            <div>No results found</div>
+            <span>No results found</span>
           ) : (
             albums.map((album: ITunesAlbum, idx: number) => (
               <CardAlbum key={idx} album={album} />
             ))
           )
         }
-      </div>
+      </AlbumContainer>
 
       <footer>
         © {new Date().getFullYear()}{" "}
-        <a
-          href="https://vyonizr.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          vyonizr
-        </a>
+        <Anchor href="https://vyonizr.com/">vyonizr</Anchor>
       </footer>
     </Container>
   )

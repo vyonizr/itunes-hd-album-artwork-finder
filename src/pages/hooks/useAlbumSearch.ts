@@ -21,6 +21,7 @@ export const useAlbumSearch = (): IUseAlbumSearch => {
       const data = await getAlbums(albumName)
       data.results
         .map((album: ITunesAlbum ) => {
+          album.artworkUrl200 = album.artworkUrl60.replace('60x60bb.jpg', '200x200bb.jpg')
           album.artworkUrl600 = album.artworkUrl60.replace('60x60bb.jpg', '600x600bb.jpg')
           album.artworkUrl = album.artworkUrl60.replace('60x60bb.jpg', '100000x100000-999.jpg')
           const releaseDate = new Date(album.releaseDate)

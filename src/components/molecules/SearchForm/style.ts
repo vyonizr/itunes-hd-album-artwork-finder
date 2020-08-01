@@ -4,7 +4,7 @@ const Form = styled.form`
   margin-bottom: 2rem;
 
   .query-label {
-    font-size: .875rem;
+    font-size: 1rem;
   }
 
   div:last-child {
@@ -13,9 +13,10 @@ const Form = styled.form`
     display: flex;
 
     button {
-      height: 2.25em;
+      min-width: 44px;
+      min-height: 44px;
       border: none;
-      color: #eeeeee;
+      background-color: ${props => props.theme.colors.gray};
       display: flex;
       justify-content: center;
       align-items: center;
@@ -25,7 +26,8 @@ const Form = styled.form`
       }
 
       :hover {
-        color: #dddddd;
+        background-color: ${props => props.theme.colors.darkerGray};
+        cursor: pointer;
       }
     }
   }

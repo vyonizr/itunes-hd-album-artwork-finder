@@ -10,6 +10,7 @@ export type ITunesAlbum = {
   artistViewUrl: string
   artworkUrl60: string
   artworkUrl100: string
+  artworkUrl200: string
   artworkUrl600: string
   artworkUrl: string
   collectionCensoredName: string
@@ -27,4 +28,27 @@ export type ITunesAlbum = {
   trackCount: number
   wrapperType: string
   year: number
+}
+
+export type Breakpoints = {
+  mobile: {
+    min: string
+    max: string
+  }
+  tablet: {
+    min: string
+    max: string
+  }
+  laptop: {
+    min: string
+    max: string
+  }
+  desktop: {
+    min: string
+    max: string
+  }
+  tv: {
+    min: string
+    max: null
+  }
 }
