@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { getAlbums } from '../api/getAlbums'
-import { ITunesAlbumFetch, ITunesAlbum } from '../../types'
+import { getAlbums } from 'src/api/getAlbums'
+import { ITunesAlbumFetch, ITunesAlbum } from 'src/types'
 
 interface IUseAlbumSearch {
   albums: ITunesAlbum[]
@@ -9,7 +9,7 @@ interface IUseAlbumSearch {
   searchAlbums: (albumName: string) => void
 }
 
-export const useAlbumSearch = (): IUseAlbumSearch => {
+const useAlbumSearch = (): IUseAlbumSearch => {
   const initialAlbumsState: ITunesAlbumFetch = { resultCount: 0, results: [] }
   const [albums, setAlbums] = useState<ITunesAlbumFetch>(initialAlbumsState);
   const [isError, setIsError] = useState<boolean | null>(null);
@@ -41,3 +41,5 @@ export const useAlbumSearch = (): IUseAlbumSearch => {
 
   return { albums: albums.results, isError, isLoading, searchAlbums }
 }
+
+export default useAlbumSearch

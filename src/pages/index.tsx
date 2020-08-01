@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react'
 import Head from 'next/head'
 import { Container, AlbumContainer } from 'src/styles/Home'
-import { useAlbumSearch } from 'src/pages/hooks/useAlbumSearch'
+import useAlbumSearch from 'src/hooks/useAlbumSearch'
 import { ITunesAlbum } from 'src/types'
 import Anchor from 'src/components/atoms/Anchor'
 import SearchForm from 'src/components/molecules/SearchForm'
