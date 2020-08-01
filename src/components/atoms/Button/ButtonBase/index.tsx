@@ -1,5 +1,5 @@
 import React from 'react'
-import { withTheme, DefaultTheme } from 'styled-components'
+import { withTheme } from 'styled-components'
 import { Button } from './style'
 
 type Props = {
