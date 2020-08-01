@@ -21,11 +21,11 @@ const Home: FunctionComponent = () => {
   return (
     <Container>
       <Head>
-        <title>iTunes Album Artwork Finder</title>
+        <title>iTunes HD Album Artwork Finder</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h2>iTunes Album Artwork Finder</h2>
+      <h2>iTunes HD Album Artwork Finder</h2>
       <SearchForm onSubmit={handleSubmitQuery} />
 
       <AlbumContainer>
