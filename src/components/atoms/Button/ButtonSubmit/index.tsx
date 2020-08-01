@@ -4,7 +4,7 @@ import { Button } from './style'
 
 const ButtonSubmit = () => {
   return (
-    <Button type="submit" className='search-button'><IconSearch /></Button>
+    <Button type="submit"><IconSearch /></Button>
   )
 }
 

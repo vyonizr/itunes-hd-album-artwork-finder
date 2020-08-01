@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Button = styled.form`
+const Button = styled.input`
   height: 2.25em;
   border: none;
   color: #eeeeee;
