@@ -36,7 +36,7 @@ const Home: FunctionComponent = () => {
       <AlbumContainer>
         {
           isError ? (
-            <span>{isError}</span>
+            <span>Something wrong happened. Please refresh the page.</span>
           ) :
           isLoading ? (
             <span>Please wait...</span>
