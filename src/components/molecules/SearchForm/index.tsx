@@ -59,6 +59,7 @@ const SearchForm: any = ({ onSubmit }: Props) => {
 
   return (
     <Form
+      autoComplete='off'
       onSubmit={(event) => onSubmit(event, query.value)}
     >
       <div>
