@@ -23,9 +23,14 @@ const Home: FunctionComponent = () => {
       <Head>
         <title>iTunes HD Album Artwork Finder</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta charSet="UTF-8"></meta>
+        <meta name="keywords" content="itunes, album, cover, artwork, downloader"></meta>
+        <meta name="author" content="Fitrahtur Rahman"></meta>
+        <meta name="description" content="iTunes HD Album Artwork Finder"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
       </Head>
 
-      <h2>iTunes HD Album Artwork Finder</h2>
+      <h2 style={{textAlign: 'center'}}>iTunes HD Album Artwork Finder</h2>
       <SearchForm onSubmit={handleSubmitQuery} />
 
       <AlbumContainer>
