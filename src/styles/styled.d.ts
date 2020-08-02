@@ -4,6 +4,7 @@ declare module 'styled-components' {
   export interface DefaultTheme {
     colors: {
       primary: string
+      primaryHover: string
       secondary: string
       success: string
       danger: string
@@ -14,7 +15,7 @@ declare module 'styled-components' {
       placeholder: string
       gray: string
       darkerGray: string
-      darkerGrayHover: string
+      inputBg: string
     }
   }
 }
