@@ -8,27 +8,18 @@ const Form = styled.form`
   }
 
   div:last-child {
-    border-radius: .25em;
-    border: 1px solid #eeeeee;
+    width: 100%;
+    height: 44px;
     display: flex;
+    flex: auto 1;
+    align-items: center;
 
     button {
       min-width: 44px;
       min-height: 44px;
-      border: none;
-      background-color: ${props => props.theme.colors.gray};
       display: flex;
       justify-content: center;
       align-items: center;
-
-      :focus {
-        outline: none;
-      }
-
-      :hover {
-        background-color: ${props => props.theme.colors.darkerGray};
-        cursor: pointer;
-      }
     }
   }
 `

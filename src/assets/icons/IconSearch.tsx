@@ -1,4 +1,5 @@
 import React from 'react'
+import { myTheme } from 'src/styles/theme'
 
 type Props = {
   size?: number
@@ -6,7 +7,7 @@ type Props = {
 }
 
 const IconSearch = (props: Props) => {
-  const { size = 24, fill='#787878' } = props
+  const { size = 24, fill=`${myTheme.colors.white}` } = props
   return (
     <svg xmlns="http://www.w3.org/2000/svg" height={size} viewBox={`0 0 ${size} ${size}`} width={size}>
       <path d="M0 0h24v24H0z" fill="none"/>

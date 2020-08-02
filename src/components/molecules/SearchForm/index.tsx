@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { withTheme } from 'styled-components'
 import InputText from 'src/components/atoms/Input/InputText'
+import ButtonSubmit from 'src/components/atoms/Button/ButtonSubmit'
 import { Form } from './style'
-import IconSearch from 'src/assets/icons/IconSearch'
 
 type Props = {
   onSubmit: (event: React.FormEvent<HTMLFormElement>, query: string) => void
@@ -63,7 +63,16 @@ const SearchForm: any = ({ onSubmit }: Props) => {
           onChange={handleChangeQuery}
           placeholder={shownPlaceholder}
         />
-        <button type="submit" className='search-button'><IconSearch /></button>
+        <input
+          type="submit"
+          style={{
+            position: 'absolute',
+            left: '-9999px',
+            width: '1px',
+            height: '1px'
+          }}
+          tabIndex={-1} />
+        <ButtonSubmit />
       </div>
     </Form>
   )

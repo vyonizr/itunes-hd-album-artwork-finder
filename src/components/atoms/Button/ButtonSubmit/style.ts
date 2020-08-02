@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
-const Button = styled.input`
+const Button = styled.button`
   height: 2.25em;
   border: none;
-  color: #eeeeee;
+  background-color: ${props => props.theme.colors.primary};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,7 +13,8 @@ const Button = styled.input`
   }
 
   :hover {
-    color: #dddddd;
+    cursor: pointer;
+    background-color: ${props => props.theme.colors.primaryHover};
   }
 `
 

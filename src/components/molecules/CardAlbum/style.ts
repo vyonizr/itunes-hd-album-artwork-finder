@@ -84,10 +84,14 @@ const DownloadButtonContainer = styled.div`
   }
 
   > * {
-    margin: 0 .25rem;
+    margin-right: .5rem;
 
     button {
       cursor: pointer;
+    }
+
+    :last-child {
+      margin: 0;
     }
   }
 `
