@@ -38,6 +38,10 @@ const ClearQueryButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  :hover {
+    cursor: pointer;
+  }
 `
 
 export { Form, ClearQueryButton }
