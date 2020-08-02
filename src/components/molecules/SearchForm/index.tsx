@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { withTheme } from 'styled-components'
+import IconCancel from 'src/assets/icons/IconCancel'
 import InputText from 'src/components/atoms/Input/InputText'
 import ButtonSubmit from 'src/components/atoms/Button/ButtonSubmit'
-import { Form } from './style'
+import { Form, ClearQueryButton } from './style'
 
 type Props = {
   onSubmit: (event: React.FormEvent<HTMLFormElement>, query: string) => void
@@ -37,16 +38,23 @@ const SearchForm: any = ({ onSubmit }: Props) => {
     setShownPlaceholder(pickRandomElement(placeholders))
   }, [])
 
-  const handleChangeQuery = (event: { target: HTMLInputElement }) => {
+  const handleChangeQuery = (event: { target: HTMLInputElement }): void => {
     setQuery({
       value: event.target.value,
       error: null,
     })
   }
 
-  const pickRandomElement = (array:any[]) => {
+  const pickRandomElement = (array:any[]): string => {
     const pickedIndex = Math.floor(Math.random() * (array.length))
     return array[pickedIndex]
+  }
+
+  const clearQuery = (): void => {
+    setQuery({
+      value: '',
+      error: null
+    })
   }
 
   return (
@@ -57,12 +65,21 @@ const SearchForm: any = ({ onSubmit }: Props) => {
         <label htmlFor="query" className='query-label'>Artist name and/or album title</label>
       </div>
       <div>
-        <InputText
-          value={query.value}
-          id="query"
-          onChange={handleChangeQuery}
-          placeholder={shownPlaceholder}
-        />
+        <div>
+          <InputText
+            value={query.value}
+            id="query"
+            onChange={handleChangeQuery}
+            placeholder={shownPlaceholder}
+          />
+          {
+            query.value.length > 0 && (
+              <ClearQueryButton onClick={clearQuery}>
+                <IconCancel />
+              </ClearQueryButton>
+            )
+          }
+        </div>
         <input
           type="submit"
           style={{

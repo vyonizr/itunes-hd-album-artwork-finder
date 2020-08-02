@@ -6,13 +6,16 @@ const Form = styled.form`
   .query-label {
     font-size: 1rem;
   }
-
-  div:last-child {
+  > div:last-child {
     width: 100%;
     height: 44px;
     display: flex;
     flex: auto 1;
     align-items: center;
+
+    > div:first-child {
+      position: relative;
+    }
 
     button {
       min-width: 44px;
@@ -24,4 +27,17 @@ const Form = styled.form`
   }
 `
 
-export { Form }
+const ClearQueryButton = styled.div`
+  width: 44px;
+  height: 44px;
+  background-color: ${props => props.theme.colors.light};
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+export { Form, ClearQueryButton }
