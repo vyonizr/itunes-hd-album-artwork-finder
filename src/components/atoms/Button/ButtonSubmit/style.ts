@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const Button = styled.button`
-  height: 2.25em;
+  height: 44px;
   border: none;
   background-color: ${props => props.theme.colors.primary};
   display: flex;

@@ -1,20 +1,26 @@
 import styled from 'styled-components'
 
 const Form = styled.form`
-  margin-bottom: 2rem;
+  margin-bottom: 2em;
 
   .query-label {
-    font-size: 1rem;
+    font-size: 1em;
   }
+
   > div:last-child {
     width: 100%;
     height: 44px;
     display: flex;
-    flex: auto 1;
-    align-items: center;
 
     > div:first-child {
-      position: relative;
+      width: 250px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      input {
+        width: 100%;
+      }
     }
 
     button {
@@ -28,14 +34,11 @@ const Form = styled.form`
 `
 
 const ClearQueryButton = styled.div`
-  width: 44px;
+  padding: 0 10px;
   height: 44px;
   background-color: ${props => props.theme.colors.light};
-  position: absolute;
-  z-index: 1;
-  right: 0;
-  top: 0;
   display: flex;
+  flex: 0 1 44px;
   justify-content: center;
   align-items: center;
 
