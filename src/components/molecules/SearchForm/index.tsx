@@ -90,7 +90,7 @@ const SearchForm: any = ({ onSubmit }: Props) => {
             height: '1px'
           }}
           tabIndex={-1} />
-        <ButtonSubmit />
+        <ButtonSubmit aria-label='submit button' />
       </div>
     </Form>
   )
