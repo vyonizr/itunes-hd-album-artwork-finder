@@ -1,4 +1,4 @@
-import Document, { DocumentContext } from 'next/document'
+import Document, { DocumentContext, Html, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 
 export default class MyDocument extends Document {
@@ -26,5 +26,20 @@ export default class MyDocument extends Document {
     } finally {
       sheet.seal()
     }
+  }
+
+  render() {
+    return (
+      <Html lang="en">
+        <Head />
+        <body>
+          <noscript>
+            <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NGM2PCH" height="0" width="0" style={{display: 'none', visibility: 'hidden'}} />
+          </noscript>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    )
   }
 }
