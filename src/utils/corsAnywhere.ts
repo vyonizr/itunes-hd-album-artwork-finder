@@ -1,5 +1,5 @@
 const corsAnywhere = (targetURL: string): string => {
-  const corsAnywhere:string = 'https://cors-anywhere.herokuapp.com/'
+  const corsAnywhere: string = 'https://cors-anywhere.herokuapp.com/'
   return `${corsAnywhere}${targetURL}`
 }
 

@@ -2,7 +2,7 @@ import { ITunesAlbumFetch } from 'src/types'
 import corsAnywhere from 'src/utils/corsAnywhere'
 
 export const getAlbums = async (albumName: string): Promise<any> => {
-  const baseURL:string = 'https://itunes.apple.com/search'
+  const baseURL: string = 'https://itunes.apple.com/search'
   const targetURL = `${corsAnywhere(baseURL)}?term=${albumName}&entity=album`
 
   try {
