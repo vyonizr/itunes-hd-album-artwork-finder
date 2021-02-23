@@ -14,7 +14,7 @@ const Home: FunctionComponent = () => {
   const handleSubmitQuery = (event: React.FormEvent<HTMLFormElement>, query: string) => {
     setHasSearch(true)
     event.preventDefault()
-    const encodedQuery:string = encodeURI(query.replace(/\s/gi, '+'))
+    const encodedQuery: string = encodeURI(query.replace(/\s/gi, '+'))
     searchAlbums(encodedQuery)
   }
 
@@ -41,7 +41,7 @@ const Home: FunctionComponent = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
       </Head>
 
-      <h2 style={{textAlign: 'center'}}>iTunes HD Album Artwork Finder</h2>
+      <h2 style={{ textAlign: 'center' }}>iTunes HD Album Artwork Finder</h2>
       <SearchForm onSubmit={handleSubmitQuery} />
 
       <AlbumContainer>
@@ -49,16 +49,16 @@ const Home: FunctionComponent = () => {
           isError ? (
             <span>Something wrong happened. Please refresh the page.</span>
           ) :
-          isLoading ? (
-            <span>Please wait...</span>
-          ) :
-          (albums.length === 0 && hasSearch) ? (
-            <span>No results found</span>
-          ) : (
-            albums.map((album: ITunesAlbum, idx: number) => (
-              <CardAlbum key={idx} album={album} />
-            ))
-          )
+            isLoading ? (
+              <span>Please wait...</span>
+            ) :
+              (albums.length === 0 && hasSearch) ? (
+                <span>No results found</span>
+              ) : (
+                  albums.map((album: ITunesAlbum, idx: number) => (
+                    <CardAlbum key={idx} album={album} />
+                  ))
+                )
         }
       </AlbumContainer>
 

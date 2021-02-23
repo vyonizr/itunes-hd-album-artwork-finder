@@ -34,7 +34,7 @@ export default class MyDocument extends Document {
         <Head />
         <body>
           <noscript>
-            <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NGM2PCH" height="0" width="0" style={{display: 'none', visibility: 'hidden'}} />
+            <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NGM2PCH" height="0" width="0" style={{ display: 'none', visibility: 'hidden' }} />
           </noscript>
           <Main />
           <NextScript />
