@@ -1,11 +1,12 @@
 import React, { FunctionComponent, useState } from 'react'
 import Head from 'next/head'
+
 import { Container, AlbumContainer } from 'src/styles/Home'
-import useAlbumSearch from 'src/hooks/useAlbumSearch'
-import { ITunesAlbum } from 'src/types'
 import Anchor from 'src/components/atoms/Anchor'
 import SearchForm from 'src/components/molecules/SearchForm'
 import CardAlbum from 'src/components/molecules/CardAlbum'
+import { useAlbumSearch } from 'src/hooks'
+import { ITunesAlbum } from 'src/types'
 
 const Home: FunctionComponent = () => {
   const { albums, searchAlbums, isError, isLoading } = useAlbumSearch()
