@@ -11,7 +11,10 @@ const Home: FunctionComponent = () => {
   const { albums, searchAlbums, isError, isLoading } = useAlbumSearch()
   const [hasSearch, setHasSearch] = useState<boolean>(false)
 
-  const handleSubmitQuery = (event: React.FormEvent<HTMLFormElement>, query: string) => {
+  const handleSubmitQuery = (
+    event: React.FormEvent<HTMLFormElement>,
+    query: string
+  ) => {
     setHasSearch(true)
     event.preventDefault()
     const encodedQuery: string = encodeURI(query.replace(/\s/gi, '+'))
@@ -33,38 +36,55 @@ const Home: FunctionComponent = () => {
           }}
         />
         <title>iTunes HD Album Artwork Finder</title>
-        <link rel="icon" href="/favicon.ico" />
-        <meta charSet="UTF-8"></meta>
-        <meta name="keywords" content="itunes, album, cover, artwork, downloader"></meta>
-        <meta name="author" content="Fitrahtur Rahman"></meta>
-        <meta name="description" content="iTunes HD Album Artwork Finder"></meta>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+        <link rel='icon' href='/favicon.ico' />
+        <meta charSet='UTF-8'></meta>
+        <meta
+          name='keywords'
+          content='itunes, album, cover, artwork, downloader'
+        ></meta>
+        <meta name='author' content='Fitrahtur Rahman'></meta>
+        <meta
+          name='description'
+          content='iTunes HD Album Artwork Finder'
+        ></meta>
+        <meta
+          name='viewport'
+          content='width=device-width, initial-scale=1.0'
+        ></meta>
+        <link
+          rel='preload'
+          href='/fonts/Inter/Inter-Regular.woff'
+          as='font'
+          crossOrigin=''
+        />
+        <link
+          rel='preload'
+          href='/fonts/Inter/Inter-Bold.woff'
+          as='font'
+          crossOrigin=''
+        />
       </Head>
 
       <h2 style={{ textAlign: 'center' }}>iTunes HD Album Artwork Finder</h2>
       <SearchForm onSubmit={handleSubmitQuery} />
 
       <AlbumContainer>
-        {
-          isError ? (
-            <span>Something wrong happened. Please refresh the page.</span>
-          ) :
-            isLoading ? (
-              <span>Please wait...</span>
-            ) :
-              (albums.length === 0 && hasSearch) ? (
-                <span>No results found</span>
-              ) : (
-                  albums.map((album: ITunesAlbum, idx: number) => (
-                    <CardAlbum key={idx} album={album} />
-                  ))
-                )
-        }
+        {isError ? (
+          <span>Something wrong happened. Please refresh the page.</span>
+        ) : isLoading ? (
+          <span>Please wait...</span>
+        ) : albums.length === 0 && hasSearch ? (
+          <span>No results found</span>
+        ) : (
+          albums.map((album: ITunesAlbum, idx: number) => (
+            <CardAlbum key={idx} album={album} />
+          ))
+        )}
       </AlbumContainer>
 
       <footer>
-        © {new Date().getFullYear()}{" "}
-        <Anchor href="https://vyonizr.com/">vyonizr</Anchor>
+        © {new Date().getFullYear()}{' '}
+        <Anchor href='https://vyonizr.com/'>vyonizr</Anchor>
       </footer>
     </Container>
   )
