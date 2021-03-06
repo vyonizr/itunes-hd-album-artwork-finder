@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import breakpoints from 'src/utils/breakpoints'
+import { px, breakpoints } from 'src/utils'
 
 const Container = styled.div`
   min-height: 100vh;
@@ -14,7 +14,7 @@ const Container = styled.div`
 `
 
 const AlbumContainer = styled.div`
-  @media only screen and (min-width: ${breakpoints.tablet.min}) {
+  @media only screen and (min-width: ${px(breakpoints.tablet.min)}) {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
