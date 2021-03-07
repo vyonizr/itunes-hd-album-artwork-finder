@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { withTheme } from 'styled-components'
+
 import IconCancel from 'src/assets/icons/IconCancel'
 import InputText from 'src/components/atoms/Input/InputText'
 import ButtonSubmit from 'src/components/atoms/Button/ButtonSubmit'
@@ -17,7 +18,7 @@ type Query = {
 const SearchForm: any = ({ onSubmit }: Props) => {
   const [query, setQuery] = useState<Query>({
     value: '',
-    error: null
+    error: null,
   })
 
   const [placeholders] = useState<string[]>([
@@ -29,7 +30,7 @@ const SearchForm: any = ({ onSubmit }: Props) => {
     'vyonizr',
     'mylo xyloto',
     'death of a bachelor',
-    'blurryface'
+    'blurryface',
   ])
 
   const [shownPlaceholder, setShownPlaceholder] = useState<string>('')
@@ -45,51 +46,49 @@ const SearchForm: any = ({ onSubmit }: Props) => {
     })
   }
 
-  const pickRandomElement = (array:any[]): string => {
-    const pickedIndex = Math.floor(Math.random() * (array.length))
+  const pickRandomElement = (array: any[]): string => {
+    const pickedIndex = Math.floor(Math.random() * array.length)
     return array[pickedIndex]
   }
 
   const clearQuery = (): void => {
     setQuery({
       value: '',
-      error: null
+      error: null,
     })
   }
 
   return (
-    <Form
-      autoComplete='off'
-      onSubmit={(event) => onSubmit(event, query.value)}
-    >
+    <Form autoComplete='off' onSubmit={(event) => onSubmit(event, query.value)}>
       <div>
-        <label htmlFor="query" className='query-label'>Artist name and/or album title</label>
+        <label htmlFor='query' className='query-label'>
+          Artist name and/or album title
+        </label>
       </div>
       <div>
         <div>
           <InputText
             value={query.value}
-            id="query"
+            id='query'
             onChange={handleChangeQuery}
             placeholder={shownPlaceholder}
           />
-          {
-            query.value.length > 0 && (
-              <ClearQueryButton onClick={clearQuery}>
-                <IconCancel />
-              </ClearQueryButton>
-            )
-          }
+          {query.value.length > 0 && (
+            <ClearQueryButton onClick={clearQuery}>
+              <IconCancel />
+            </ClearQueryButton>
+          )}
         </div>
         <input
-          type="submit"
+          type='submit'
           style={{
             position: 'absolute',
             left: '-9999px',
             width: '1px',
-            height: '1px'
+            height: '1px',
           }}
-          tabIndex={-1} />
+          tabIndex={-1}
+        />
         <ButtonSubmit aria-label='submit button' />
       </div>
     </Form>

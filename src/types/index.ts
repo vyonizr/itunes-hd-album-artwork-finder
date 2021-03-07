@@ -32,23 +32,23 @@ export type ITunesAlbum = {
 
 export type Breakpoints = {
   mobile: {
-    min: string
-    max: string
+    min: number
+    max: number
   }
   tablet: {
-    min: string
-    max: string
+    min: number
+    max: number
   }
   laptop: {
-    min: string
-    max: string
+    min: number
+    max: number
   }
   desktop: {
-    min: string
-    max: string
+    min: number
+    max: number
   }
   tv: {
-    min: string
+    min: number
     max: null
   }
 }

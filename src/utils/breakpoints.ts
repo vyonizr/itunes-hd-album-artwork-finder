@@ -2,25 +2,25 @@ import { Breakpoints } from 'src/types'
 
 const breakpoints: Breakpoints = {
   mobile: {
-    min: '0px',
-    max: '480px'
+    min: 0,
+    max: 480,
   },
   tablet: {
-    min: '481px',
-    max: '768px'
+    min: 481,
+    max: 768,
   },
   laptop: {
-    min: '769px',
-    max: '1024px'
+    min: 769,
+    max: 1024,
   },
   desktop: {
-    min: '1025px',
-    max: '1200ox'
+    min: 1025,
+    max: 1200,
   },
   tv: {
-    min: '1201px',
-    max: null
-  }
+    min: 1201,
+    max: null,
+  },
 }
 
 export default breakpoints
