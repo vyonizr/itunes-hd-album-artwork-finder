@@ -2,9 +2,9 @@ import React, { FunctionComponent, useState } from 'react'
 import Head from 'next/head'
 
 import { Container, AlbumContainer } from 'src/styles/Home'
-import Anchor from 'src/components/atoms/Anchor'
 import SearchForm from 'src/components/molecules/SearchForm'
 import CardAlbum from 'src/components/molecules/CardAlbum'
+import Footer from 'src/components/molecules/Footer'
 import { useAlbumSearch } from 'src/hooks'
 import { ITunesAlbum } from 'src/types'
 
@@ -20,6 +20,28 @@ const Home: FunctionComponent = () => {
     event.preventDefault()
     const encodedQuery: string = encodeURI(query.replace(/\s/gi, '+'))
     searchAlbums(encodedQuery)
+  }
+
+  const SearchResult = () => {
+    if (isError) {
+      return <span>Something wrong happened. Please refresh the page.</span>
+    }
+
+    if (isLoading) {
+      return <span>Please wait...</span>
+    }
+
+    if (albums.length === 0 && hasSearch) {
+      return <span>No results found</span>
+    }
+
+    return (
+      <>
+        {albums.map((album: ITunesAlbum, index: number) => (
+          <CardAlbum key={index} album={album} />
+        ))}
+      </>
+    )
   }
 
   return (
@@ -70,23 +92,10 @@ const Home: FunctionComponent = () => {
       <SearchForm onSubmit={handleSubmitQuery} />
 
       <AlbumContainer>
-        {isError ? (
-          <span>Something wrong happened. Please refresh the page.</span>
-        ) : isLoading ? (
-          <span>Please wait...</span>
-        ) : albums.length === 0 && hasSearch ? (
-          <span>No results found</span>
-        ) : (
-          albums.map((album: ITunesAlbum, idx: number) => (
-            <CardAlbum key={idx} album={album} />
-          ))
-        )}
+        <SearchResult />
       </AlbumContainer>
 
-      <footer>
-        © {new Date().getFullYear()}{' '}
-        <Anchor href='https://vyonizr.com/'>vyonizr</Anchor>
-      </footer>
+      <Footer />
     </Container>
   )
 }

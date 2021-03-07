@@ -7,10 +7,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  footer {
-    margin: 1em 0;
-  }
 `
 
 const AlbumContainer = styled.div`
