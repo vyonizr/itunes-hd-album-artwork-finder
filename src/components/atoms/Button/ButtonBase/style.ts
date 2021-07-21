@@ -18,7 +18,7 @@ const Button = styled('button')<{ primary: boolean }>`
     background-color: ${(props) =>
       props.primary
         ? props.theme.colors.primaryHover
-        : props.theme.colors.gray};
+        : props.theme.colors.light};
   }
 `
 

@@ -8,7 +8,7 @@ const myTheme: DefaultTheme = {
     success: '#28a745',
     danger: '#dc3545',
     warning: '#ffc107',
-    light: '#f8f9fa',
+    light: '#f0f2f4',
     dark: '#343a40',
     white: '#ffffff',
     placeholder: 'hsla(240, 3%, 12%, 0.5)',
