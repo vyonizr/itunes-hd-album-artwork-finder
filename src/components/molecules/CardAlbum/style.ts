@@ -116,13 +116,18 @@ const DownloadButtonContainer = styled.div`
 `
 
 const DownloadButtonWrapper = styled.div`
-  border: 1px solid ${(props) => props.theme.colors.primary};
-  border-radius: 5px;
+  > :first-child {
+    button {
+      border: 1px solid ${(props) => props.theme.colors.primary};
+      cursor: pointer;
+      border-radius: 5px 0px 0px 5px;
+    }
+  }
 
-  > * {
+  > :last-child {
     button {
       cursor: pointer;
-      overflow: hidden;
+      border-radius: 0px 5px 5px 0px;
     }
   }
 `
