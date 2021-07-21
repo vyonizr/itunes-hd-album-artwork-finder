@@ -17,9 +17,13 @@ const Form = styled.form`
       display: flex;
       justify-content: center;
       align-items: center;
+      border-radius: 0;
+      -webkit-border-radius: 0;
 
       input {
         width: 100%;
+        border-radius: 0;
+        -webkit-border-radius: 0;
       }
     }
 
