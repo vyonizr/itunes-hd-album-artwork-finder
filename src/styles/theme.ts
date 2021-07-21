@@ -14,8 +14,8 @@ const myTheme: DefaultTheme = {
     placeholder: 'hsla(240, 3%, 12%, 0.5)',
     gray: '#ccc',
     darkerGray: '#dddddd',
-    inputBg: '#ededed'
-  }
+    inputBg: '#ededed',
+  },
 }
 
 export { myTheme }

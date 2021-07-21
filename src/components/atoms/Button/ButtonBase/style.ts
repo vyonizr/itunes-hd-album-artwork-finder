@@ -1,11 +1,12 @@
 import styled from 'styled-components'
 
-const Button = styled.button`
+const Button = styled('button')<{ primary: boolean }>`
   min-height: 44px;
   min-width: 44px;
-  background-color: ${props => props.theme.colors.primary};
-  color: ${props => props.theme.colors.white};
-  border-radius: 3px;
+  background-color: ${(props) =>
+    props.primary ? props.theme.colors.primary : props.theme.colors.white};
+  color: ${(props) =>
+    props.primary ? props.theme.colors.white : props.theme.colors.primary};
   border: none;
 
   :focus {
@@ -14,7 +15,10 @@ const Button = styled.button`
 
   :hover {
     cursor: pointer;
-    background-color: ${props => props.theme.colors.primaryHover};
+    background-color: ${(props) =>
+      props.primary
+        ? props.theme.colors.primaryHover
+        : props.theme.colors.gray};
   }
 `
 

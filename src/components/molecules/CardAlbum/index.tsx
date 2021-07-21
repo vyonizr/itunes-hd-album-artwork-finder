@@ -6,7 +6,12 @@ import Anchor from 'src/components/atoms/Anchor'
 import ButtonBase from 'src/components/atoms/Button/ButtonBase'
 import { useWindowSize } from 'src/hooks'
 
-import { Container, AlbumTitle, DownloadButtonContainer } from './style'
+import {
+  Container,
+  AlbumTitle,
+  DownloadButtonContainer,
+  DownloadButtonWrapper,
+} from './style'
 
 type Props = {
   album: ITunesAlbum
@@ -38,16 +43,20 @@ const CardAlbum = memo(({ album }: Props) => {
           </span>
         </AlbumTitle>
         <DownloadButtonContainer>
-          <Anchor href={album.artworkUrl600}>
-            <ButtonBase>
-              <strong>SD</strong>
-            </ButtonBase>
-          </Anchor>
-          <Anchor href={album.artworkUrl}>
-            <ButtonBase>
-              <strong>HD</strong>
-            </ButtonBase>
-          </Anchor>
+          <DownloadButtonWrapper>
+            <Anchor href={album.artworkUrl600}>
+              <ButtonBase>
+                <strong>SD</strong>
+              </ButtonBase>
+            </Anchor>
+            <Anchor href={album.artworkUrl}>
+              <ButtonBase primary>
+                <strong>
+                  <i>HD</i>
+                </strong>
+              </ButtonBase>
+            </Anchor>
+          </DownloadButtonWrapper>
         </DownloadButtonContainer>
       </div>
     </Container>

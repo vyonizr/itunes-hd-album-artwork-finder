@@ -36,7 +36,7 @@ const Form = styled.form`
 const ClearQueryButton = styled.div`
   padding: 0 10px;
   height: 44px;
-  background-color: ${props => props.theme.colors.light};
+  background-color: ${(props) => props.theme.colors.light};
   display: flex;
   flex: 0 1 44px;
   justify-content: center;
