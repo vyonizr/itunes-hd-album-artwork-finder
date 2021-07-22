@@ -93,27 +93,43 @@ const Container = styled.div`
 
 const AlbumTitle = styled.div`
   margin-bottom: 0.5em;
+
+  @media only screen and (max-width: ${px(breakpoints.mobile.max)}) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
 `
 
 const DownloadButtonContainer = styled.div`
   display: flex;
+  justify-content: center;
+  width: fit-content;
 
   @media only screen and (min-width: ${px(breakpoints.tablet.min)}) {
+    width: 100%;
     justify-content: center;
     margin-bottom: 0.5em;
   }
+`
 
-  > * {
-    margin-right: 0.5em;
+const DownloadButtonWrapper = styled.div`
+  > :first-child {
+    button {
+      border: 1px solid ${(props) => props.theme.colors.primary};
+      cursor: pointer;
+      border-radius: 5px 0px 0px 5px;
+    }
+  }
 
+  > :last-child {
     button {
       cursor: pointer;
-    }
-
-    :last-child {
-      margin: 0;
+      border-radius: 0px 5px 5px 0px;
     }
   }
 `
 
-export { Container, DownloadButtonContainer, AlbumTitle }
+export { Container, DownloadButtonContainer, AlbumTitle, DownloadButtonWrapper }

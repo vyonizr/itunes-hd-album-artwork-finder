@@ -4,7 +4,7 @@ const Input = styled.input`
   padding: 12px;
   min-height: 44px;
   border: none;
-  background-color: ${props => props.theme.colors.light};
+  background-color: ${(props) => props.theme.colors.light};
   font-size: 16px;
 
   :focus {
@@ -13,7 +13,7 @@ const Input = styled.input`
   }
 
   ::placeholder {
-    background-color: ${props => props.theme.colors.light};
+    background-color: ${(props) => props.theme.colors.light};
   }
 `
 
