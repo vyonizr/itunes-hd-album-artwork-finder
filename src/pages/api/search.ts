@@ -14,8 +14,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { keyword } = req.query
-  const encodedKeyword = encodeURIComponent(keyword as string)
+  const keyword: string = req.query.keyword as string
+  const encodedKeyword = encodeURIComponent(keyword)
 
   const baseURL: string = 'https://itunes.apple.com/search'
   const targetURL = `${baseURL}?term=${encodedKeyword}&entity=album`
