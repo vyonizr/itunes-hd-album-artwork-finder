@@ -18,7 +18,7 @@ const Home: FunctionComponent = () => {
   ) => {
     setHasSearch(true)
     event.preventDefault()
-    const encodedQuery: string = encodeURIComponent(query.replace(/\s/gi, '+'))
+    const encodedQuery: string = encodeURIComponent(query)
     searchAlbums(encodedQuery)
   }
 
