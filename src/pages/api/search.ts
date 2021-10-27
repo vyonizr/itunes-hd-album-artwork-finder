@@ -15,9 +15,10 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { keyword } = req.query
+  const encodedKeyword = encodeURIComponent(keyword as string)
 
   const baseURL: string = 'https://itunes.apple.com/search'
-  const targetURL = `${baseURL}?term=${keyword}&entity=album`
+  const targetURL = `${baseURL}?term=${encodedKeyword}&entity=album`
 
   try {
     await cors(req, res)
