@@ -11,6 +11,7 @@ import {
   AlbumTitle,
   DownloadButtonContainer,
   DownloadButtonWrapper,
+  HDText,
 } from './style'
 
 type Props = {
@@ -51,7 +52,7 @@ const CardAlbum = memo(({ album }: Props) => {
             <Anchor href={album.artworkUrl}>
               <ButtonBase primary>
                 <strong>
-                  <i>HD</i>
+                  <HDText>HD</HDText>
                 </strong>
               </ButtonBase>
             </Anchor>

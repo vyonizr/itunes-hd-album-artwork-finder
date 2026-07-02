@@ -1,9 +1,10 @@
 import React, { FunctionComponent, useState } from 'react'
 import Head from 'next/head'
 
-import { Container, AlbumContainer } from 'src/styles/Home'
+import { Container, AlbumContainer, Heading } from 'src/styles/Home'
 import SearchForm from 'src/components/molecules/SearchForm'
 import CardAlbum from 'src/components/molecules/CardAlbum'
+import SkeletonCard from 'src/components/molecules/CardAlbum/SkeletonCard'
 import Footer from 'src/components/molecules/Footer'
 import { useAlbumSearch } from 'src/hooks'
 import { ITunesAlbum } from 'src/types'
@@ -28,7 +29,13 @@ const Home: FunctionComponent = () => {
     }
 
     if (isLoading) {
-      return <span>Please wait...</span>
+      return (
+        <>
+          {Array.from({ length: 4 }, (_, i) => (
+            <SkeletonCard key={i} />
+          ))}
+        </>
+      )
     }
 
     if (albums.length === 0 && hasSearch) {
@@ -88,10 +95,10 @@ const Home: FunctionComponent = () => {
         />
       </Head>
 
-      <h2 style={{ textAlign: 'center' }}>iTunes HD Album Artwork Finder</h2>
+      <Heading>iTunes HD Album Artwork Finder</Heading>
       <SearchForm onSubmit={handleSubmitQuery} />
 
-      <AlbumContainer>
+      <AlbumContainer aria-live='polite'>
         <SearchResult />
       </AlbumContainer>
 

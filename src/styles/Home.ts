@@ -17,4 +17,8 @@ const AlbumContainer = styled.div`
   }
 `
 
-export { Container, AlbumContainer }
+const Heading = styled.h2`
+  text-align: center;
+`
+
+export { Container, AlbumContainer, Heading }

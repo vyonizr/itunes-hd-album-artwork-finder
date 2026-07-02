@@ -6,6 +6,8 @@ type Props = {
   value: string
   id: string
   onChange: (event: { target: HTMLInputElement }) => void
+  onFocus?: () => void
+  onBlur?: () => void
   placeholder?: string
 }
 

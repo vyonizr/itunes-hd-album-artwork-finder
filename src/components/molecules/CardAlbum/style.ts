@@ -132,4 +132,8 @@ const DownloadButtonWrapper = styled.div`
   }
 `
 
-export { Container, DownloadButtonContainer, AlbumTitle, DownloadButtonWrapper }
+const HDText = styled.span`
+  font-style: italic;
+`
+
+export { Container, DownloadButtonContainer, AlbumTitle, DownloadButtonWrapper, HDText }

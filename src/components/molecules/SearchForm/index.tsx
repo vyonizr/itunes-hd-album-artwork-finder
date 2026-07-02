@@ -46,6 +46,9 @@ const SearchForm: any = ({ onSubmit }: Props) => {
   const [shownPlaceholder, setShownPlaceholder] = useState<string>('')
   const [placeholders, setPlaceholders] = useState<string[]>(FALLBACK_PLACEHOLDERS)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const [isFocused, setIsFocused] = useState<boolean>(false)
+
+  const isActive = query.value.length > 0 || isFocused
 
   const rotatePlaceholder = useCallback(() => {
     setShownPlaceholder((prev) => {
@@ -74,13 +77,14 @@ const SearchForm: any = ({ onSubmit }: Props) => {
   }, [])
 
   useEffect(() => {
+    if (isActive) return
     intervalRef.current = setInterval(rotatePlaceholder, ROTATION_INTERVAL)
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current)
       }
     }
-  }, [rotatePlaceholder])
+  }, [rotatePlaceholder, isActive])
 
   const handleChangeQuery = (event: { target: HTMLInputElement }): void => {
     setQuery({
@@ -109,6 +113,8 @@ const SearchForm: any = ({ onSubmit }: Props) => {
             value={query.value}
             id='query'
             onChange={handleChangeQuery}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
             placeholder={shownPlaceholder}
           />
           {query.value.length > 0 && (
