@@ -1,13 +1,14 @@
 import React from 'react'
 
 import Anchor from 'src/components/atoms/Anchor'
+import { StyledFooter } from './style'
 
 const Footer = () => {
   return (
-    <footer style={{ margin: '1em 0' }}>
-      © {new Date().getFullYear()}{' '}
+    <StyledFooter>
+      © 2020-{new Date().getFullYear()}{' '}
       <Anchor href='https://vyonizr.com/'>vyonizr</Anchor>
-    </footer>
+    </StyledFooter>
   )
 }
 

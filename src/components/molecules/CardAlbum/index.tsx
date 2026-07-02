@@ -11,6 +11,7 @@ import {
   AlbumTitle,
   DownloadButtonContainer,
   DownloadButtonWrapper,
+  HDText,
 } from './style'
 
 type Props = {
@@ -18,19 +19,18 @@ type Props = {
 }
 
 const CardAlbum = memo(({ album }: Props) => {
-  const handleImageRes = (album: ITunesAlbum): string => {
-    const { width = 0 } = useWindowSize()
+  const { width = 0 } = useWindowSize()
 
-    return width < breakpoints.tablet.min
+  const imageSrc =
+    width < breakpoints.tablet.min
       ? album.artworkUrl100
       : album.artworkUrl200
-  }
 
   return (
     <Container>
       <Anchor href={album.artworkUrl600}>
         <img
-          src={handleImageRes(album)}
+          src={imageSrc}
           alt={`album artwork of ${album.collectionName} by ${album.artistName}`}
         />
       </Anchor>
@@ -52,7 +52,7 @@ const CardAlbum = memo(({ album }: Props) => {
             <Anchor href={album.artworkUrl}>
               <ButtonBase primary>
                 <strong>
-                  <i>HD</i>
+                  <HDText>HD</HDText>
                 </strong>
               </ButtonBase>
             </Anchor>
