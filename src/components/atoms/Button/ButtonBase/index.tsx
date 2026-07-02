@@ -1,14 +1,15 @@
 import React from 'react'
-import { withTheme } from 'styled-components'
 
 import { Button } from './style'
 
 type Props = {
   onClick?: () => void
   children: React.ReactNode
-  primary: boolean
+  primary?: boolean
 }
 
-const ButtonDiv = (props: Props) => <Button {...props} />
+const ButtonDiv = ({ primary = false, ...props }: Props) => (
+  <Button $primary={primary} {...props} />
+)
 
-export default withTheme(ButtonDiv as any)
+export default ButtonDiv

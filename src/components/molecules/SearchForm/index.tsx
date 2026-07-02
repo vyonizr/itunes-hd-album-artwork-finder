@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { withTheme } from 'styled-components'
 
 import IconCancel from 'src/assets/icons/IconCancel'
 import InputText from 'src/components/atoms/Input/InputText'
@@ -95,4 +94,4 @@ const SearchForm: any = ({ onSubmit }: Props) => {
   )
 }
 
-export default withTheme(SearchForm)
+export default SearchForm
