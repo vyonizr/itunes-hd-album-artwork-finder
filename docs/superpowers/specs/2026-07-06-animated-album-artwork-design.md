@@ -40,6 +40,7 @@ Apple's motion art is served as an HLS stream (`.m3u8` + segments), not a single
 - `URL.createObjectURL` the resulting blob and trigger a normal browser download, same as the existing static-artwork download.
 - Output format is `.mp4` only for now — no `.webp` option (YAGNI; add if requested later).
 - The existing static-artwork download button and its behavior are unchanged. When motion art is available, the card additionally shows a second download action for the animated version.
+- The animated-download button is hidden below the existing `mobile` breakpoint (`src/utils/breakpoints.ts`, 0–480px) via a CSS media query on the button itself — same mechanism already used elsewhere in `CardAlbum/style.ts` for responsive layout, no JS user-agent sniffing needed. Motion artwork still autoplays in the card on mobile; only the download action is unavailable, avoiding the ~25-30MB wasm fetch and heavy CPU work on constrained devices/connections.
 
 ## Error handling
 
