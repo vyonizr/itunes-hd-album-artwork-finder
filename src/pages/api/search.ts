@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { ITunesAlbumFetch } from 'src/types'
 import initMiddleware from 'src/utils/initMiddleware'
-import getCountryCode from 'src/utils/getCountryCode'
+import getCountryCode, { FALLBACK_COUNTRY } from 'src/utils/getCountryCode'
 
 const cors = initMiddleware(
   Cors({
@@ -20,14 +20,21 @@ export default async function handler(
 
   const country = getCountryCode(req)
   const baseURL: string = 'https://itunes.apple.com/search'
-  const targetURL = `${baseURL}?term=${encodedKeyword}&entity=album&country=${country}`
+  const searchURL = (countryCode: string) =>
+    `${baseURL}?term=${encodedKeyword}&entity=album&country=${countryCode}`
 
   try {
     await cors(req, res)
 
     if (keyword.length > 0) {
-      const response = await fetch(targetURL)
-      const responseJSON: ITunesAlbumFetch = await response.json()
+      const response = await fetch(searchURL(country))
+      let responseJSON: ITunesAlbumFetch = await response.json()
+
+      if (responseJSON.resultCount === 0 && country !== FALLBACK_COUNTRY) {
+        const fallbackResponse = await fetch(searchURL(FALLBACK_COUNTRY))
+        responseJSON = await fallbackResponse.json()
+      }
+
       res.json(responseJSON)
     } else {
       res.json({ resultCount: 0, results: [] })

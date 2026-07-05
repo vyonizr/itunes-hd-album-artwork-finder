@@ -1,6 +1,6 @@
 import type { NextApiRequest } from 'next'
 
-const FALLBACK_COUNTRY = 'US'
+export const FALLBACK_COUNTRY = 'US'
 
 // Vercel sets this header from the request's geo IP; absent in local dev.
 const getCountryCode = (req: NextApiRequest): string => {
