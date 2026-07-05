@@ -1,7 +1,8 @@
 {
   "name": "itunes-hd-album-artwork-finder",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
