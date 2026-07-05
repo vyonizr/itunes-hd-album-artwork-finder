@@ -31,7 +31,15 @@ Mirrors the existing `useAlbumSearch` pattern. Takes a `collectionId`, calls `/a
 
 Each card calls `useMotionArtwork(collectionId)` independently. When `motionUrl` is present, render `<video autoPlay muted loop playsInline src={motionUrl} />` in place of the static `<img>`. When absent (the common case), render exactly what the card renders today — no visual difference, no loading state exposed to the user.
 
-The existing artwork download button is unaffected and continues to download the static image only. Apple's motion art is served as an HLS stream (`.m3u8`), not a single downloadable file, and we are explicitly not adding server-side transcoding for this — motion art is view-only, in-card playback.
+### Motion artwork download (client-side, ffmpeg.wasm)
+
+Apple's motion art is served as an HLS stream (`.m3u8` + segments), not a single downloadable file. Rather than transcoding server-side (which would require bundling an ffmpeg binary into the serverless function), we follow m8tec's approach and do it entirely client-side:
+
+- Add `@ffmpeg/ffmpeg` (ffmpeg.wasm) as a dependency, loaded lazily — only when a user clicks download on a card that has motion artwork, not on page load.
+- On click: fetch the HLS playlist and its `.ts` segments, write them into ffmpeg.wasm's virtual filesystem, and run `-f concat -safe 0 -i list.txt -c copy output.mp4` (remux only, no re-encode — fast, no quality loss).
+- `URL.createObjectURL` the resulting blob and trigger a normal browser download, same as the existing static-artwork download.
+- Output format is `.mp4` only for now — no `.webp` option (YAGNI; add if requested later).
+- The existing static-artwork download button and its behavior are unchanged. When motion art is available, the card additionally shows a second download action for the animated version.
 
 ## Error handling
 
@@ -41,8 +49,10 @@ Every failure mode in the motion-artwork path (harvest failure, network error, 4
 
 This depends on undocumented internals of Apple's web player (an embedded token intended for Apple's own frontend, and an undocumented private API). It can break without notice if Apple reshapes its JS bundle, rotates how the token is embedded, or adds bot detection — there is no SLA. It also operates in a legal/ToS gray area since it impersonates Apple's own web client against a private endpoint. Treat this as a best-effort visual enhancement, not a feature users can depend on.
 
+ffmpeg.wasm is a ~25–30MB WebAssembly download and uses real client-side CPU for a few seconds per download. Loading it lazily (only on download click, not on page load) keeps this cost off the default browsing experience.
+
 Documented in `README.md` ("Legal disclaimer" section) and in the site footer, both crediting m8tec/apple-music-animated-artworks as the source of the technique.
 
 ## Testing
 
-No test suite exists in this repo currently (per `CLAUDE.md`). Manual verification: search for an album known to have Motion Artwork on Apple Music (e.g. a recent high-profile release), confirm the card plays a looping video; search for an arbitrary older album, confirm it falls back to static artwork with no visible difference from current behavior; simulate a harvest/catalog failure (e.g. by breaking the regex temporarily) and confirm the app still functions normally with static-only artwork.
+No test suite exists in this repo currently (per `CLAUDE.md`). Manual verification: search for an album known to have Motion Artwork on Apple Music (e.g. a recent high-profile release), confirm the card plays a looping video; search for an arbitrary older album, confirm it falls back to static artwork with no visible difference from current behavior; simulate a harvest/catalog failure (e.g. by breaking the regex temporarily) and confirm the app still functions normally with static-only artwork; click download on a card with motion artwork and confirm a valid, playable `.mp4` is saved.
