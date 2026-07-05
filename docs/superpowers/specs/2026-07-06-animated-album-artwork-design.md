@@ -25,11 +25,16 @@ Steps:
 
 ### New hook: `src/hooks/useMotionArtwork.ts`
 
-Mirrors the existing `useAlbumSearch` pattern. Takes a `collectionId`, calls `/api/motion-artwork` on mount, and exposes the resulting `motionUrl` (or `null`).
+Mirrors the existing `useAlbumSearch` pattern. Takes a `collectionId` and a `shouldFetch` flag, calls `/api/motion-artwork` once `shouldFetch` first becomes true, and exposes the resulting `motionUrl` (or `null`).
 
-### `CardAlbum` change
+### `CardAlbum` change — viewport-gated autoplay
 
-Each card calls `useMotionArtwork(collectionId)` independently. When `motionUrl` is present, render `<video autoPlay muted loop playsInline src={motionUrl} />` in place of the static `<img>`. When absent (the common case), render exactly what the card renders today — no visual difference, no loading state exposed to the user.
+A result set can have up to 50 cards, so we don't want dozens of concurrent video streams:
+
+- Each card uses an `IntersectionObserver` (a small `useInView` ref hook) to track whether it's currently on-screen.
+- `useMotionArtwork(collectionId, hasBeenVisible)` only fires its fetch the first time the card enters the viewport — cards that are never scrolled to never trigger a motion-artwork lookup at all, bounding backend load the same way it bounds playback.
+- Once `motionUrl` is resolved, the card renders `<video muted loop playsInline src={motionUrl} />` in place of the static `<img>`, but playback itself is driven by the current intersection state: `video.play()` while in view, `video.pause()` when scrolled out (rather than a plain `autoPlay` attribute). This keeps only on-screen cards actively playing, and resumes automatically on scroll-back without re-fetching.
+- When `motionUrl` is absent, or before first visibility, the card renders exactly what it does today — no visual difference, no loading state exposed to the user.
 
 ### Motion artwork download (client-side, ffmpeg.wasm)
 
