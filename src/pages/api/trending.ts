@@ -2,6 +2,7 @@ import Cors from 'cors'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import initMiddleware from 'src/utils/initMiddleware'
+import getCountryCode from 'src/utils/getCountryCode'
 
 const cors = initMiddleware(
   Cors({
@@ -25,22 +26,24 @@ interface RSSEntry {
   'im:image': { label: string }[]
 }
 
-let cache: { data: TrendingResponse; timestamp: number } | null = null
+const cache = new Map<string, { data: TrendingResponse; timestamp: number }>()
 const CACHE_TTL = 60 * 60 * 1000
 
 export default async function handler(
-  _req: NextApiRequest,
+  req: NextApiRequest,
   res: NextApiResponse
 ) {
-  await cors(_req, res)
+  await cors(req, res)
 
-  if (cache && Date.now() - cache.timestamp < CACHE_TTL) {
-    return res.json(cache.data)
+  const country = getCountryCode(req)
+  const cached = cache.get(country)
+
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+    return res.json(cached.data)
   }
 
   try {
-    const feedURL =
-      'https://itunes.apple.com/us/rss/topalbums/limit=20/json'
+    const feedURL = `https://itunes.apple.com/${country.toLowerCase()}/rss/topalbums/limit=20/json`
     const response = await fetch(feedURL)
     const json = await response.json()
 
@@ -56,12 +59,12 @@ export default async function handler(
       updated: new Date().toISOString(),
     }
 
-    cache = { data, timestamp: Date.now() }
+    cache.set(country, { data, timestamp: Date.now() })
 
     res.json(data)
   } catch (error) {
-    if (cache) {
-      return res.json(cache.data)
+    if (cached) {
+      return res.json(cached.data)
     }
     res.status(502).json({ error: 'Failed to fetch trending albums' })
   }

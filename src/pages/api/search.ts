@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { ITunesAlbumFetch } from 'src/types'
 import initMiddleware from 'src/utils/initMiddleware'
+import getCountryCode from 'src/utils/getCountryCode'
 
 const cors = initMiddleware(
   Cors({
@@ -17,8 +18,9 @@ export default async function handler(
   const keyword: string = req.query.keyword as string
   const encodedKeyword = encodeURIComponent(keyword)
 
+  const country = getCountryCode(req)
   const baseURL: string = 'https://itunes.apple.com/search'
-  const targetURL = `${baseURL}?term=${encodedKeyword}&entity=album`
+  const targetURL = `${baseURL}?term=${encodedKeyword}&entity=album&country=${country}`
 
   try {
     await cors(req, res)
