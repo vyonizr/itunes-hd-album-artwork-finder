@@ -5,7 +5,12 @@ import breakpoints from 'src/utils/breakpoints'
 import { ITunesAlbum } from 'src/types'
 import Anchor from 'src/components/atoms/Anchor'
 import ButtonBase from 'src/components/atoms/Button/ButtonBase'
-import { useWindowSize, useInView, useMotionArtwork } from 'src/hooks'
+import {
+  useWindowSize,
+  useInView,
+  useMotionArtwork,
+  useDominantColor,
+} from 'src/hooks'
 import { downloadMotionArtwork } from 'src/utils/downloadMotionArtwork'
 
 import {
@@ -32,6 +37,7 @@ const CardAlbum = memo(({ album }: Props) => {
 
   const artworkSize = 200
   const imageSrc = album.artworkUrl200
+  const accentColor = useDominantColor(hasBeenInView ? imageSrc : undefined)
 
   useEffect(() => {
     setMotionFailed(false)
@@ -126,7 +132,10 @@ const CardAlbum = memo(({ album }: Props) => {
   }
 
   return (
-    <Container ref={ref}>
+    <Container
+      ref={ref}
+      style={accentColor ? ({ '--accent': accentColor } as React.CSSProperties) : undefined}
+    >
       <Anchor href={album.artworkUrl600}>
         {motionUrl && !motionFailed ? (
           <video

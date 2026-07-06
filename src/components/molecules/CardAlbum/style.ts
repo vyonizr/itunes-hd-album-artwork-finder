@@ -6,7 +6,8 @@ const Container = styled.div`
   img,
   video {
     box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.2),
-      0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 0 2.5em -0.5em var(--accent, transparent);
+    transition: box-shadow 0.4s ease;
   }
 
   width: 19em;

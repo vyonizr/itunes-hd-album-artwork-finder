@@ -8,11 +8,7 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
 
-  :focus {
-    outline: none;
-  }
-
-  :hover {
+  &:hover {
     cursor: pointer;
     background-color: ${props => props.theme.colors.primaryHover};
   }

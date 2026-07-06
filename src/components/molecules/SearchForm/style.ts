@@ -46,7 +46,7 @@ const ClearQueryButton = styled.div`
   justify-content: center;
   align-items: center;
 
-  :hover {
+  &:hover {
     cursor: pointer;
   }
 `

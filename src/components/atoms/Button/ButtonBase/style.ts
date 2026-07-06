@@ -9,11 +9,7 @@ const Button = styled('button')<{ $primary?: boolean }>`
     props.$primary ? props.theme.colors.white : props.theme.colors.primary};
   border: none;
 
-  :focus {
-    outline: none;
-  }
-
-  :hover {
+  &:hover {
     cursor: pointer;
     background-color: ${(props) =>
       props.$primary
