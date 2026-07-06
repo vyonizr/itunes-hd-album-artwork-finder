@@ -26,14 +26,19 @@ const CardAlbum = memo(({ album }: Props) => {
   const motionUrl = useMotionArtwork(album.collectionId, hasBeenInView)
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isDownloadingMotion, setIsDownloadingMotion] = useState(false)
+  const [motionFailed, setMotionFailed] = useState(false)
 
   const artworkSize = width < breakpoints.tablet.min ? 100 : 200
   const imageSrc =
     width < breakpoints.tablet.min ? album.artworkUrl100 : album.artworkUrl200
 
   useEffect(() => {
+    setMotionFailed(false)
+  }, [motionUrl])
+
+  useEffect(() => {
     const videoNode = videoRef.current
-    if (!videoNode || !motionUrl) return
+    if (!videoNode || !motionUrl || motionFailed) return
 
     let hls: Hls | null = null
 
@@ -60,14 +65,20 @@ const CardAlbum = memo(({ album }: Props) => {
 
   useEffect(() => {
     const videoNode = videoRef.current
-    if (!videoNode) return
+    if (!videoNode || motionFailed) return
 
     if (isInView) {
-      videoNode.play().catch(() => {})
+      // iOS Safari blocks autoplay of any video whose `muted` IDL property
+      // isn't actually true at play() time. React doesn't reliably sync
+      // that property from the JSX `muted` attribute on hydration, so it's
+      // set explicitly here - without it, play() rejects silently and the
+      // video renders as a blank rectangle instead of falling back.
+      videoNode.muted = true
+      videoNode.play().catch(() => setMotionFailed(true))
     } else {
       videoNode.pause()
     }
-  }, [isInView, motionUrl])
+  }, [isInView, motionUrl, motionFailed])
 
   const handleMotionDownload = async () => {
     if (!motionUrl || isDownloadingMotion) return
@@ -88,7 +99,7 @@ const CardAlbum = memo(({ album }: Props) => {
   return (
     <Container ref={ref}>
       <Anchor href={album.artworkUrl600}>
-        {motionUrl ? (
+        {motionUrl && !motionFailed ? (
           <video
             ref={videoRef}
             width={artworkSize}
@@ -96,12 +107,13 @@ const CardAlbum = memo(({ album }: Props) => {
             muted
             loop
             playsInline
-            onError={() =>
+            onError={() => {
               console.error(
                 '[motion-artwork] video element error',
                 videoRef.current?.error
               )
-            }
+              setMotionFailed(true)
+            }}
           />
         ) : (
           <img
