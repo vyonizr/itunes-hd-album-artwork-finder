@@ -118,19 +118,26 @@ const DownloadButtonContainer = styled.div`
 `
 
 const DownloadButtonWrapper = styled.div`
-  > :first-child {
-    button {
-      border: 1px solid ${(props) => props.theme.colors.primary};
-      cursor: pointer;
-      border-radius: 5px 0px 0px 5px;
-    }
+  display: flex;
+
+  button {
+    border: 1px solid ${(props) => props.theme.colors.primary};
+    cursor: pointer;
   }
 
-  > :last-child {
-    button {
-      cursor: pointer;
-      border-radius: 0px 5px 5px 0px;
-    }
+  > :not(:first-child) button,
+  > button:not(:first-child) {
+    border-left: none;
+  }
+
+  > :first-child button,
+  > button:first-child {
+    border-radius: 5px 0px 0px 5px;
+  }
+
+  > :last-child button,
+  > button:last-child {
+    border-radius: 0px 5px 5px 0px;
   }
 `
 
