@@ -29,19 +29,42 @@ export function parseM3U8(
   return { initSegmentUrl, segmentUrls }
 }
 
+function findFirstVariantUrl(
+  playlistText: string,
+  playlistUrl: string
+): string | null {
+  // A master playlist lists one or more variants, each as a
+  // #EXT-X-STREAM-INF tag immediately followed by that variant's own
+  // playlist URL on the next line. Real Apple motion-artwork playlists
+  // always have several variants (different resolutions/codecs), so we
+  // can't tell master from media playlists by counting non-# lines -
+  // we have to look for this specific tag.
+  const lines = playlistText
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean)
+
+  const variantTagIndex = lines.findIndex((line) =>
+    line.startsWith('#EXT-X-STREAM-INF')
+  )
+  if (variantTagIndex === -1) return null
+
+  const variantUrlLine = lines[variantTagIndex + 1]
+  if (!variantUrlLine || variantUrlLine.startsWith('#')) return null
+
+  return resolveUrl(variantUrlLine, playlistUrl)
+}
+
 export async function resolveMediaPlaylist(
   playlistUrl: string
 ): Promise<ParsedPlaylist> {
   const response = await fetch(playlistUrl)
   const playlistText = await response.text()
-  const parsed = parseM3U8(playlistText, playlistUrl)
 
-  const isMasterPlaylist =
-    parsed.segmentUrls.length === 1 && parsed.segmentUrls[0].endsWith('.m3u8')
-
-  if (isMasterPlaylist) {
-    return resolveMediaPlaylist(parsed.segmentUrls[0])
+  const firstVariantUrl = findFirstVariantUrl(playlistText, playlistUrl)
+  if (firstVariantUrl) {
+    return resolveMediaPlaylist(firstVariantUrl)
   }
 
-  return parsed
+  return parseM3U8(playlistText, playlistUrl)
 }

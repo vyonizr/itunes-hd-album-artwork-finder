@@ -50,6 +50,28 @@ export async function downloadMotionArtwork(
   const { initSegmentUrl, segmentUrls } = await resolveMediaPlaylist(
     playlistUrl
   )
+
+  const uniqueUrls = new Set(
+    [initSegmentUrl, ...segmentUrls].filter((url): url is string => !!url)
+  )
+
+  if (uniqueUrls.size === 1) {
+    // Apple delivers motion artwork as HTTP byte-range segments that are
+    // all sub-ranges of one shared, already-complete fragmented MP4 file
+    // (confirmed against a real playlist: the init segment's BYTERANGE
+    // starts at offset 0, and each following segment's BYTERANGE picks up
+    // exactly where the previous one ended). So the file at that single
+    // URL is already the full playable video - fetch it directly, no
+    // remux needed.
+    const [onlyUrl] = uniqueUrls
+    const bytes = await fetchAsUint8Array(onlyUrl)
+    triggerBrowserDownload(
+      new Blob([bytes as BlobPart], { type: 'video/mp4' }),
+      fileName
+    )
+    return
+  }
+
   const ffmpeg = await getFFmpeg()
 
   if (initSegmentUrl) {
