@@ -147,6 +147,8 @@ const CardAlbum = memo(({ album }: Props) => {
         ) : (
           <img
             src={imageSrc}
+            width={artworkSize}
+            height={artworkSize}
             alt={`album artwork of ${album.collectionName} by ${album.artistName}`}
           />
         )}

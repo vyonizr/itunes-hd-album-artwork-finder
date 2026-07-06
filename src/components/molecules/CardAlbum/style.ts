@@ -85,7 +85,9 @@ const Container = styled.div`
 const AlbumTitle = styled.div`
   margin-bottom: 0.5em;
 
-  @media only screen and (max-width: ${px(breakpoints.mobile.max)}) {
+  @media only screen and (min-width: ${px(breakpoints.tablet.min)}) {
+    line-height: 1.2em;
+    min-height: 2.4em;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
