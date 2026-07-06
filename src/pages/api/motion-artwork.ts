@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { getAppleMusicToken } from 'src/utils/appleMusicToken'
 import getCountryCode from 'src/utils/getCountryCode'
+import { getClientIp, isRateLimited } from 'src/utils/rateLimit'
 import { MotionArtworkResponse } from 'src/types'
 
 async function fetchCatalogAlbum(
@@ -28,6 +29,11 @@ export default async function handler(
 
   if (!collectionId) {
     res.status(400).json({ motionUrl: null })
+    return
+  }
+
+  if (await isRateLimited('motion-artwork', getClientIp(req))) {
+    res.status(429).json({ motionUrl: null })
     return
   }
 
