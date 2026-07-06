@@ -38,6 +38,10 @@ const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
 `
 
 export default GlobalStyle

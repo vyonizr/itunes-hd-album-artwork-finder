@@ -7,11 +7,6 @@ const Input = styled.input`
   background-color: ${(props) => props.theme.colors.light};
   font-size: 16px;
 
-  :focus {
-    outline: none;
-    background-color: none;
-  }
-
   ::placeholder {
     background-color: ${(props) => props.theme.colors.light};
   }
