@@ -10,6 +10,10 @@ const Container = styled.div`
     transition: box-shadow 0.4s ease;
   }
 
+  video {
+    display: block;
+  }
+
   width: 19em;
   margin: 0em 1.5em 3em;
   display: flex;
@@ -78,6 +82,22 @@ const Container = styled.div`
       opacity: 0;
     }
     to {
+      opacity: 1;
+    }
+  }
+`
+
+const ArtworkWrapper = styled.div`
+  position: relative;
+
+  video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    &.is-visible {
       opacity: 1;
     }
   }
@@ -157,6 +177,7 @@ const MotionDialog = styled.dialog`
 
 export {
   Container,
+  ArtworkWrapper,
   DownloadButtonContainer,
   AlbumTitle,
   DownloadButtonWrapper,
