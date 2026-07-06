@@ -50,6 +50,10 @@ const CardAlbum = memo(({ album }: Props) => {
       // Hls.isSupported() checks for real MediaSource Extensions support
       // instead of trusting that heuristic.
       hls = new Hls()
+      hls.on(Hls.Events.ERROR, (_event, data) => {
+        console.error('[motion-artwork] hls.js error', data)
+        if (data.fatal) setMotionFailed(true)
+      })
       hls.loadSource(motionUrl)
       hls.attachMedia(videoNode)
     } else if (videoNode.canPlayType('application/vnd.apple.mpegurl')) {
@@ -67,16 +71,35 @@ const CardAlbum = memo(({ album }: Props) => {
     const videoNode = videoRef.current
     if (!videoNode || motionFailed) return
 
-    if (isInView) {
-      // iOS Safari blocks autoplay of any video whose `muted` IDL property
-      // isn't actually true at play() time. React doesn't reliably sync
-      // that property from the JSX `muted` attribute on hydration, so it's
-      // set explicitly here - without it, play() rejects silently and the
-      // video renders as a blank rectangle instead of falling back.
-      videoNode.muted = true
-      videoNode.play().catch(() => setMotionFailed(true))
-    } else {
+    if (!isInView) {
       videoNode.pause()
+      return
+    }
+
+    videoNode.muted = true
+
+    let cancelled = false
+    const attemptPlay = () => {
+      videoNode.play().catch((error) => {
+        if (cancelled) return
+        console.error('[motion-artwork] play() rejected', error)
+        if (error?.name === 'NotAllowedError') {
+          // The platform (Low Power Mode, cellular data saver, or the
+          // Auto-Play Videos setting) is refusing gesture-less autoplay
+          // outright - no amount of muted/playsInline tuning changes that.
+          // A real user gesture always overrides it, so retry once the
+          // visitor next taps anywhere on the page.
+          document.addEventListener('touchend', attemptPlay, { once: true })
+        } else {
+          setMotionFailed(true)
+        }
+      })
+    }
+    attemptPlay()
+
+    return () => {
+      cancelled = true
+      document.removeEventListener('touchend', attemptPlay)
     }
   }, [isInView, motionUrl, motionFailed])
 
