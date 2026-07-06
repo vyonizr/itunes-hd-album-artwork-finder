@@ -15,6 +15,7 @@ import { downloadMotionArtwork } from 'src/utils/downloadMotionArtwork'
 
 import {
   Container,
+  ArtworkWrapper,
   AlbumTitle,
   DownloadButtonContainer,
   DownloadButtonWrapper,
@@ -34,6 +35,7 @@ const CardAlbum = memo(({ album }: Props) => {
   const desktopOnlyDialogRef = useRef<HTMLDialogElement>(null)
   const [isDownloadingMotion, setIsDownloadingMotion] = useState(false)
   const [motionFailed, setMotionFailed] = useState(false)
+  const [isMotionVisible, setIsMotionVisible] = useState(false)
 
   const artworkSize = 200
   const imageSrc = album.artworkUrl200
@@ -41,6 +43,7 @@ const CardAlbum = memo(({ album }: Props) => {
 
   useEffect(() => {
     setMotionFailed(false)
+    setIsMotionVisible(false)
   }, [motionUrl])
 
   useEffect(() => {
@@ -137,30 +140,33 @@ const CardAlbum = memo(({ album }: Props) => {
       style={accentColor ? ({ '--accent': accentColor } as React.CSSProperties) : undefined}
     >
       <Anchor href={album.artworkUrl600}>
-        {motionUrl && !motionFailed ? (
-          <video
-            ref={videoRef}
-            width={artworkSize}
-            height={artworkSize}
-            muted
-            loop
-            playsInline
-            onError={() => {
-              console.error(
-                '[motion-artwork] video element error',
-                videoRef.current?.error
-              )
-              setMotionFailed(true)
-            }}
-          />
-        ) : (
+        <ArtworkWrapper>
           <img
             src={imageSrc}
             width={artworkSize}
             height={artworkSize}
             alt={`album artwork of ${album.collectionName} by ${album.artistName}`}
           />
-        )}
+          {motionUrl && !motionFailed && (
+            <video
+              ref={videoRef}
+              className={isMotionVisible ? 'is-visible' : undefined}
+              width={artworkSize}
+              height={artworkSize}
+              muted
+              loop
+              playsInline
+              onPlaying={() => setIsMotionVisible(true)}
+              onError={() => {
+                console.error(
+                  '[motion-artwork] video element error',
+                  videoRef.current?.error
+                )
+                setMotionFailed(true)
+              }}
+            />
+          )}
+        </ArtworkWrapper>
       </Anchor>
       <div>
         <AlbumTitle>
