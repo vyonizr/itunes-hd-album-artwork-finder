@@ -14,6 +14,7 @@ import {
   DownloadButtonContainer,
   DownloadButtonWrapper,
   HDText,
+  MotionDialog,
 } from './style'
 
 type Props = {
@@ -25,6 +26,7 @@ const CardAlbum = memo(({ album }: Props) => {
   const { ref, isInView, hasBeenInView } = useInView<HTMLDivElement>()
   const motionUrl = useMotionArtwork(album.collectionId, hasBeenInView)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const desktopOnlyDialogRef = useRef<HTMLDialogElement>(null)
   const [isDownloadingMotion, setIsDownloadingMotion] = useState(false)
   const [motionFailed, setMotionFailed] = useState(false)
 
@@ -105,6 +107,11 @@ const CardAlbum = memo(({ album }: Props) => {
   const handleMotionDownload = async () => {
     if (!motionUrl || isDownloadingMotion) return
 
+    if (width < breakpoints.tablet.max) {
+      desktopOnlyDialogRef.current?.showModal()
+      return
+    }
+
     setIsDownloadingMotion(true)
     try {
       await downloadMotionArtwork(
@@ -166,7 +173,7 @@ const CardAlbum = memo(({ album }: Props) => {
                 </strong>
               </ButtonBase>
             </Anchor>
-            {motionUrl && width >= breakpoints.tablet.max && (
+            {motionUrl && (
               <ButtonBase onClick={handleMotionDownload}>
                 <strong>{isDownloadingMotion ? '...' : 'Motion'}</strong>
               </ButtonBase>
@@ -174,6 +181,15 @@ const CardAlbum = memo(({ album }: Props) => {
           </DownloadButtonWrapper>
         </DownloadButtonContainer>
       </div>
+      <MotionDialog ref={desktopOnlyDialogRef}>
+        <p>Motion artwork downloads are only available on desktop.</p>
+        <ButtonBase
+          primary
+          onClick={() => desktopOnlyDialogRef.current?.close()}
+        >
+          Got it
+        </ButtonBase>
+      </MotionDialog>
     </Container>
   )
 })

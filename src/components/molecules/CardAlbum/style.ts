@@ -129,4 +129,34 @@ const HDText = styled.span`
   font-style: italic;
 `
 
-export { Container, DownloadButtonContainer, AlbumTitle, DownloadButtonWrapper, HDText }
+const MotionDialog = styled.dialog`
+  border: none;
+  border-radius: 8px;
+  padding: 1.5em;
+  max-width: 20em;
+  text-align: center;
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  p {
+    margin: 0 0 1em;
+  }
+
+  button {
+    border: 1px solid ${(props) => props.theme.colors.primary};
+    border-radius: 5px;
+    padding: 0 1.5em;
+  }
+`
+
+export {
+  Container,
+  DownloadButtonContainer,
+  AlbumTitle,
+  DownloadButtonWrapper,
+  HDText,
+  MotionDialog,
+}
