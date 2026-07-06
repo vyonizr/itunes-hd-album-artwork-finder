@@ -9,32 +9,21 @@ const Container = styled.div`
       0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
 
-  @media only screen and (min-width: ${px(
-      breakpoints.mobile.min
-    )}) and (max-width: ${px(breakpoints.mobile.max)}) {
-    min-height: 105px;
-    margin-bottom: 1em;
-    display: grid;
-    grid-template-columns: 7em auto;
+  width: 19em;
+  margin: 0em 1.5em 3em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  img,
+  video {
+    margin-bottom: 0.5em;
   }
 
-  @media only screen and (min-width: ${px(breakpoints.tablet.min)}) {
-    width: 19em;
-    margin: 0em 1.5em 3em;
+  > div:last-child {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-
-    img,
-    video {
-      margin-bottom: 0.5em;
-    }
-
-    > div:last-child {
-      display: flex;
-      flex-direction: column-reverse;
-    }
+    flex-direction: column-reverse;
   }
 
   -webkit-animation: fadein 0.5s; /* Safari, Chrome and Opera > 12.1 */
@@ -108,13 +97,8 @@ const AlbumTitle = styled.div`
 const DownloadButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  width: fit-content;
-
-  @media only screen and (min-width: ${px(breakpoints.tablet.min)}) {
-    width: 100%;
-    justify-content: center;
-    margin-bottom: 0.5em;
-  }
+  width: 100%;
+  margin-bottom: 0.5em;
 `
 
 const DownloadButtonWrapper = styled.div`

@@ -28,9 +28,8 @@ const CardAlbum = memo(({ album }: Props) => {
   const [isDownloadingMotion, setIsDownloadingMotion] = useState(false)
   const [motionFailed, setMotionFailed] = useState(false)
 
-  const artworkSize = width < breakpoints.tablet.min ? 100 : 200
-  const imageSrc =
-    width < breakpoints.tablet.min ? album.artworkUrl100 : album.artworkUrl200
+  const artworkSize = 200
+  const imageSrc = album.artworkUrl200
 
   useEffect(() => {
     setMotionFailed(false)
