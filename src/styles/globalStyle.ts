@@ -23,6 +23,7 @@ const GlobalStyle = createGlobalStyle`
     height: 100vh;
     padding: 0;
     margin: 0;
+    background-color: #faf6f0;
     font-family: "Inter", "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   }
 
