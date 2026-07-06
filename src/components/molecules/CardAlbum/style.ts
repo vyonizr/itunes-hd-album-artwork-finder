@@ -9,32 +9,21 @@ const Container = styled.div`
       0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
 
-  @media only screen and (min-width: ${px(
-      breakpoints.mobile.min
-    )}) and (max-width: ${px(breakpoints.mobile.max)}) {
-    min-height: 105px;
-    margin-bottom: 1em;
-    display: grid;
-    grid-template-columns: 7em auto;
+  width: 19em;
+  margin: 0em 1.5em 3em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  img,
+  video {
+    margin-bottom: 0.5em;
   }
 
-  @media only screen and (min-width: ${px(breakpoints.tablet.min)}) {
-    width: 19em;
-    margin: 0em 1.5em 3em;
+  > div:last-child {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-
-    img,
-    video {
-      margin-bottom: 0.5em;
-    }
-
-    > div:last-child {
-      display: flex;
-      flex-direction: column-reverse;
-    }
+    flex-direction: column-reverse;
   }
 
   -webkit-animation: fadein 0.5s; /* Safari, Chrome and Opera > 12.1 */
@@ -96,7 +85,9 @@ const Container = styled.div`
 const AlbumTitle = styled.div`
   margin-bottom: 0.5em;
 
-  @media only screen and (max-width: ${px(breakpoints.mobile.max)}) {
+  @media only screen and (min-width: ${px(breakpoints.tablet.min)}) {
+    line-height: 1.2em;
+    min-height: 2.4em;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -108,13 +99,8 @@ const AlbumTitle = styled.div`
 const DownloadButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  width: fit-content;
-
-  @media only screen and (min-width: ${px(breakpoints.tablet.min)}) {
-    width: 100%;
-    justify-content: center;
-    margin-bottom: 0.5em;
-  }
+  width: 100%;
+  margin-bottom: 0.5em;
 `
 
 const DownloadButtonWrapper = styled.div`
@@ -145,4 +131,34 @@ const HDText = styled.span`
   font-style: italic;
 `
 
-export { Container, DownloadButtonContainer, AlbumTitle, DownloadButtonWrapper, HDText }
+const MotionDialog = styled.dialog`
+  border: none;
+  border-radius: 8px;
+  padding: 1.5em;
+  max-width: 20em;
+  text-align: center;
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  p {
+    margin: 0 0 1em;
+  }
+
+  button {
+    border: 1px solid ${(props) => props.theme.colors.primary};
+    border-radius: 5px;
+    padding: 0 1.5em;
+  }
+`
+
+export {
+  Container,
+  DownloadButtonContainer,
+  AlbumTitle,
+  DownloadButtonWrapper,
+  HDText,
+  MotionDialog,
+}
