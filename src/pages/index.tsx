@@ -10,7 +10,8 @@ import { useAlbumSearch } from 'src/hooks'
 import { ITunesAlbum } from 'src/types'
 
 const Home: FunctionComponent = () => {
-  const { albums, searchAlbums, isError, isLoading } = useAlbumSearch()
+  const { albums, searchAlbums, isError, isRateLimited, isLoading } =
+    useAlbumSearch()
   const [hasSearch, setHasSearch] = useState<boolean>(false)
 
   const handleSubmitQuery = (
@@ -24,6 +25,10 @@ const Home: FunctionComponent = () => {
   }
 
   const SearchResult = () => {
+    if (isRateLimited) {
+      return <span>Too many searches. Please wait a moment and try again.</span>
+    }
+
     if (isError) {
       return <span>Something wrong happened. Please refresh the page.</span>
     }

@@ -6,6 +6,7 @@ import initMiddleware from 'src/utils/initMiddleware'
 import getCountryCode, { FALLBACK_COUNTRY } from 'src/utils/getCountryCode'
 import { getAppleMusicToken } from 'src/utils/appleMusicToken'
 import { mapAmpAlbumToITunesAlbum, AmpAlbumItem } from 'src/utils/mapAmpAlbum'
+import { getClientIp, isRateLimited } from 'src/utils/rateLimit'
 
 const cors = initMiddleware(
   Cors({
@@ -95,6 +96,11 @@ export default async function handler(
 
   try {
     await cors(req, res)
+
+    if (await isRateLimited('search', getClientIp(req))) {
+      res.status(429).json({ resultCount: 0, results: [] })
+      return
+    }
 
     if (keyword.length === 0) {
       res.json({ resultCount: 0, results: [] })
