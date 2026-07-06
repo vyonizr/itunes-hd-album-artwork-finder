@@ -9,7 +9,10 @@
     "start": "next start"
   },
   "dependencies": {
+    "@ffmpeg/ffmpeg": "^0.12.15",
+    "@ffmpeg/util": "^0.12.2",
     "cors": "^2.8.5",
+    "hls.js": "^1.6.16",
     "next": "^15.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

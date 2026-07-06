@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import { breakpoints, px } from 'src/utils'
 
 const Container = styled.div`
-  img {
+  img,
+  video {
     box-shadow: 0 0.25em 0.5em 0 rgba(0, 0, 0, 0.2),
       0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
@@ -25,7 +26,8 @@ const Container = styled.div`
     align-items: center;
     text-align: center;
 
-    img {
+    img,
+    video {
       margin-bottom: 0.5em;
     }
 

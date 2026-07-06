@@ -30,6 +30,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ffmpeg/ffmpeg@npm:^0.12.15":
+  version: 0.12.15
+  resolution: "@ffmpeg/ffmpeg@npm:0.12.15"
+  dependencies:
+    "@ffmpeg/types": "npm:^0.12.4"
+  checksum: 10c0/80c44459ca31ec7596d5624572370fd4c6ecf31701c6b23ec52cce85b4bddabaaa68c3ad050adfbba4db3ae4956c5538828690c51e1c258930850fe1a182599e
+  languageName: node
+  linkType: hard
+
+"@ffmpeg/types@npm:^0.12.4":
+  version: 0.12.4
+  resolution: "@ffmpeg/types@npm:0.12.4"
+  checksum: 10c0/8dba8e728a11158fbee94baffd648bf3446ad891506f5e65ffc64f5510e8afc33dffc2dd4abcf2966736fbd7d3c4919e9ce9fcf71f7d22607015caae431b83dd
+  languageName: node
+  linkType: hard
+
+"@ffmpeg/util@npm:^0.12.2":
+  version: 0.12.2
+  resolution: "@ffmpeg/util@npm:0.12.2"
+  checksum: 10c0/a1c8ab735762f2b1e3174bf96125feb541be528327843c9719042012381603a17d511d01afd2c8c2e7349453a8001ae6bf1ba8769779d305342e7f42ed704a9d
+  languageName: node
+  linkType: hard
+
 "@img/colour@npm:^1.0.0":
   version: 1.1.0
   resolution: "@img/colour@npm:1.1.0"
@@ -437,15 +460,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hls.js@npm:^1.6.16":
+  version: 1.6.16
+  resolution: "hls.js@npm:1.6.16"
+  checksum: 10c0/dedf0255fdea857f29e46caab990b2bbdfde9410e64932466e03fc95018238b94486ce57e4b6a96aa4d0e8f9fd26c877e3905951f900fd58437f5eab2b284722
+  languageName: node
+  linkType: hard
+
 "itunes-hd-album-artwork-finder@workspace:.":
   version: 0.0.0-use.local
   resolution: "itunes-hd-album-artwork-finder@workspace:."
   dependencies:
+    "@ffmpeg/ffmpeg": "npm:^0.12.15"
+    "@ffmpeg/util": "npm:^0.12.2"
     "@types/cors": "npm:^2.8.17"
     "@types/node": "npm:^22.13.0"
     "@types/react": "npm:^19.0.0"
     "@types/react-dom": "npm:^19.0.0"
     cors: "npm:^2.8.5"
+    hls.js: "npm:^1.6.16"
     next: "npm:^15.3.0"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"

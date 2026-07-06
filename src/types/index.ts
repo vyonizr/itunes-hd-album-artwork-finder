@@ -30,6 +30,10 @@ export type ITunesAlbum = {
   year: number
 }
 
+export type MotionArtworkResponse = {
+  motionUrl: string | null
+}
+
 export type Breakpoints = {
   mobile: {
     min: number
